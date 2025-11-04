@@ -1,0 +1,35 @@
+services:
+  watchtower:
+    image: containrrr/watchtower
+    container_name: cache-watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    environment:
+      WATCHTOWER_NOTIFICATIONS_HOSTNAME: linux-cache
+      WATCHTOWER_POLL_INTERVAL: 3600
+
+  inbucket:
+    image: containrrr/watchtower
+    container_name: inbucket
+    restart: always
+    ports:
+      - "80:80/tcp" # WEB
+      - "25:25/tcp" # SMTP
+      - "110:110/tcp" # POP3
+    volumes:
+      - inbucket_data:/data
+    environment:
+      - INBUCKET_MAILBOXNAMING="full"
+      - INBUCKET_SMTP_ADDR="0.0.0.0:25"
+      - INBUCKET_SMTP_DOMAIN="smtp.markridgwell.com"
+      - INBUCKET_POP3_ADDR="0.0.0.0:110"
+      - INBUCKET_POP3_DOMAIN="pop3.markridgwell.com"
+      - INBUCKET_WEB_ADDR="0.0.0.0:80"
+      - INBUCKET_STORAGE_TYPE="file"
+      - INBUCKET_STORAGE_PARAMS="/data"
+
+volumes:
+  inbucket_data:
+    name: inbucket_data
+    external: true
