@@ -10,7 +10,7 @@ services:
       WATCHTOWER_POLL_INTERVAL: 3600
 
   inbucket:
-    image: containrrr/watchtower
+    image: inbucket/inbucket:latest
     container_name: inbucket
     restart: always
     ports:
