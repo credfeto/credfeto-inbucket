@@ -28,6 +28,7 @@ services:
       INBUCKET_WEB_ADDR: 0.0.0.0:80
       INBUCKET_STORAGE_TYPE: file
       INBUCKET_STORAGE_PARAMS: "path:/data"
+      INBUCKET_STORAGE_RETENTIONPERIOD: "366h"
 
 volumes:
   inbucket_data:
